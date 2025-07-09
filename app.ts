@@ -1,197 +1,198 @@
-// Interfaccia IProgrammaFormazione
-interface IProgrammaFormazione {
-    titolo: string;
-    descrizione: string;
-    ambitoSpecializzazione: string;
-    durata: string;
-    elencoPartecipanti: IProfessionistaMedia[];
+// Interface ITrainingProgram
+interface ITrainingProgram {
+    title: string;
+    description: string;
+    specializationArea: string;
+    duration: string;
+    participants: IMediaProfessional[];
 
-    aggiungiPartecipante(professionista: IProfessionistaMedia): void;
+    addParticipant(professional: IMediaProfessional): void;
 }
 
-// Interfaccia IProfessionistaMedia
-interface IProfessionistaMedia {
-    nome: string;
-    cognome: string;
-    specializzazione: string; // es. giornalismo, regia, produzione
-    esperienza: number; // anni di esperienza
-    interessi: string[];
+// Interface IMediaProfessional
+interface IMediaProfessional {
+    firstName: string;
+    lastName: string;
+    specialization: string; // e.g., journalism, directing, production
+    experienceYears: number; // years of experience
+    interests: string[];
 
-    partecipaProgramma(programma: IProgrammaFormazione): void;
+    enrollInProgram(program: ITrainingProgram): void;
 }
 
-// Interfaccia IPiattaforma
-interface IPiattaforma {
-    nome: string;
-    tipo: 'stampato' | 'online' | 'audiovisivo';
-    descrizione: string;
-    categorieContenuto: string[];
+// Interface IPlatform
+interface IPlatform {
+    name: string;
+    type: 'print' | 'online' | 'audiovisual';
+    description: string;
+    contentCategories: string[];
 
-    pubblicaContenuto(professionista: IProfessionistaMedia, contenuto: string): void;
+    publishContent(professional: IMediaProfessional, content: string): void;
 }
 
-// Classe ProfessionistaMedia
-class ProfessionistaMedia implements IProfessionistaMedia {
-    nome: string;
-    cognome: string;
-    specializzazione: string;
-    esperienza: number;
-    interessi: string[];
+// Class MediaProfessional
+class MediaProfessional implements IMediaProfessional {
+    firstName: string;
+    lastName: string;
+    specialization: string;
+    experienceYears: number;
+    interests: string[];
 
-    constructor(nome: string, cognome: string, specializzazione: string, esperienza: number, interessi: string[]) {
-        this.nome = nome;
-        this.cognome = cognome;
-        this.specializzazione = specializzazione;
-        this.esperienza = esperienza;
-        this.interessi = interessi;
+    constructor(firstName: string, lastName: string, specialization: string, experienceYears: number, interests: string[]) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.specialization = specialization;
+        this.experienceYears = experienceYears;
+        this.interests = interests;
     }
 
-    partecipaProgramma(programma: IProgrammaFormazione): void {
-        console.log(`${this.nome} ${this.cognome} si sta iscrivendo al programma: ${programma.titolo}`);
-        programma.aggiungiPartecipante(this);
+    enrollInProgram(program: ITrainingProgram): void {
+        console.log(`${this.firstName} ${this.lastName} is enrolling in the program: ${program.title}`);
+        program.addParticipant(this);
     }
 }
 
-// Classe ProgrammaFormazione
-class ProgrammaFormazione implements IProgrammaFormazione {
-    titolo: string;
-    descriptive: string; // Renamed to avoid conflict with 'description' property
-    ambitoSpecializzazione: string;
-    durata: string;
-    elencoPartecipanti: IProfessionistaMedia[];
+// Class TrainingProgram
+class TrainingProgram implements ITrainingProgram {
+    title: string;
+    description: string;
+    specializationArea: string;
+    duration: string;
+    participants: IMediaProfessional[];
 
-    constructor(titolo: string, descrizione: string, ambitoSpecializzazione: string, durata: string) {
-        this.titolo = titolo;
-        this.descriptive = descrizione;
-        this.ambitoSpecializzazione = ambitoSpecializzazione;
-        this.durata = durata;
-        this.elencoPartecipanti = [];
+    constructor(title: string, description: string, specializationArea: string, duration: string) {
+        this.title = title;
+        this.description = description;
+        this.specializationArea = specializationArea;
+        this.duration = duration;
+        this.participants = [];
     }
 
-    aggiungiPartecipante(professionista: IProfessionistaMedia): void {
-        if (!this.elencoPartecipanti.some(p => p.nome === professionista.nome && p.cognome === professionista.cognome)) {
-            this.elencoPartecipanti.push(professionista);
-            console.log(`${professionista.nome} ${professionista.cognome} è stato aggiunto al programma "${this.titolo}".`);
+    addParticipant(professional: IMediaProfessional): void {
+        // Check if the professional is already enrolled to avoid duplicates
+        if (!this.participants.some(p => p.firstName === professional.firstName && p.lastName === professional.lastName)) {
+            this.participants.push(professional);
+            console.log(`${professional.firstName} ${professional.lastName} has been added to the program "${this.title}".`);
         } else {
-            console.log(`${professionista.nome} ${professionista.cognome} è già iscritto al programma "${this.titolo}".`);
+            console.log(`${professional.firstName} ${professional.lastName} is already enrolled in the program "${this.title}".`);
         }
     }
 }
 
-// Classe Piattaforma
-class Piattaforma implements IPiattaforma {
-    nome: string;
-    tipo: 'stampato' | 'online' | 'audiovisivo';
-    descriptive: string; // Renamed to avoid conflict with 'description' property
-    categorieContenuto: string[];
+// Class Platform
+class Platform implements IPlatform {
+    name: string;
+    type: 'print' | 'online' | 'audiovisual';
+    description: string;
+    contentCategories: string[];
 
-    constructor(nome: string, tipo: 'stampato' | 'online' | 'audiovisivo', descrizione: string, categorieContenuto: string[]) {
-        this.nome = nome;
-        this.tipo = tipo;
-        this.descriptive = descrizione;
-        this.categorieContenuto = categorieContenuto;
+    constructor(name: string, type: 'print' | 'online' | 'audiovisual', description: string, contentCategories: string[]) {
+        this.name = name;
+        this.type = type;
+        this.description = description;
+        this.contentCategories = contentCategories;
     }
 
-    pubblicaContenuto(professionista: IProfessionistaMedia, contenuto: string): void {
-        console.log(`La piattaforma "${this.nome}" (${this.tipo}) ha pubblicato un contenuto di ${professionista.nome} ${professionista.cognome}.`);
-        console.log(`Contenuto: "${contenuto}"`);
-        console.log(`Specializzazione della professionista: ${professionista.specializzazione}`);
+    publishContent(professional: IMediaProfessional, content: string): void {
+        console.log(`The platform "${this.name}" (${this.type}) has published content by ${professional.firstName} ${professional.lastName}.`);
+        console.log(`Content: "${content}"`);
+        console.log(`Professional's specialization: ${professional.specialization}`);
         console.log('---');
     }
 }
 
 
-// --- Istanziazione e Test ---
+// --- Instantiation and Testing ---
 
-console.log("--- Inizio Test Simulazione 'Voci' ---");
+console.log("--- Starting 'Voci' Simulation Test ---");
 
-// 1. Istanzia ProfessionisteMedia
-const professionista1 = new ProfessionistaMedia("Giulia", "Rossi", "Giornalismo", 5, ["inchieste", "interviste", "ambiente"]);
-const professionista2 = new ProfessionistaMedia("Laura", "Bianchi", "Regia", 8, ["documentari", "cortometraggi", "sociale"]);
-const professionista3 = new ProfessionistaMedia("Sara", "Verdi", "Produzione", 3, ["podcast", "eventi", "tecnologia"]);
+// 1. Instantiate MediaProfessionals
+const mediaProfessional1 = new MediaProfessional("Giulia", "Rossi", "Journalism", 5, ["investigative reports", "interviews", "environment"]);
+const mediaProfessional2 = new MediaProfessional("Laura", "Bianchi", "Directing", 8, ["documentaries", "short films", "social issues"]);
+const mediaProfessional3 = new MediaProfessional("Sara", "Verdi", "Production", 3, ["podcasts", "events", "technology"]);
 
-console.log("\nProfessioniste create:");
-console.log(professionista1);
-console.log(professionista2);
-console.log(professionista3);
+console.log("\nMedia Professionals created:");
+console.log(mediaProfessional1);
+console.log(mediaProfessional2);
+console.log(mediaProfessional3);
 
-// 2. Istanzia ProgrammiFormazione
-const programmaMentorship = new ProgrammaFormazione(
-    "Mentorship per Nuove Voci",
-    "Programma di mentorship one-to-one con esperte del settore.",
-    "Sviluppo Carriera",
-    "6 mesi"
+// 2. Instantiate TrainingPrograms
+const mentorshipProgram = new TrainingProgram(
+    "Mentorship for New Voices",
+    "One-to-one mentorship program with industry experts.",
+    "Career Development",
+    "6 months"
 );
 
-const programmaTecnico = new ProgrammaFormazione(
-    "Corso Avanzato di Storytelling Digitale",
-    "Formazione pratica su tecniche di storytelling per piattaforme digitali.",
-    "Competenze Tecniche",
-    "3 mesi"
+const technicalProgram = new TrainingProgram(
+    "Advanced Digital Storytelling Course",
+    "Practical training on storytelling techniques for digital platforms.",
+    "Technical Skills",
+    "3 months"
 );
 
-console.log("\nProgrammi di formazione creati:");
-console.log(programmaMentorship);
-console.log(programmaTecnico);
+console.log("\nTraining Programs created:");
+console.log(mentorshipProgram);
+console.log(technicalProgram);
 
-// 3. Istanzia Piattaforme
-const piattaformaBlog = new Piattaforma(
-    "Blog di Voci",
+// 3. Instantiate Platforms
+const blogPlatform = new Platform(
+    "Voci Blog",
     "online",
-    "Piattaforma principale per articoli e approfondimenti.",
-    ["attualità", "società", "cultura"]
+    "Main platform for articles and in-depth analyses.",
+    ["current affairs", "society", "culture"]
 );
 
-const piattaformaYouTube = new Piattaforma(
-    "Canale YouTube VociTV",
-    "audiovisivo",
-    "Canale dedicato a video, interviste e documentari.",
-    ["interviste", "analisi", "storie di successo"]
+const youtubePlatform = new Platform(
+    "VociTV YouTube Channel",
+    "audiovisual",
+    "Channel dedicated to videos, interviews, and documentaries.",
+    ["interviews", "analysis", "success stories"]
 );
 
-const piattaformaRivista = new Piattaforma(
-    "Rivista 'Donne Oggi'",
-    "stampato",
-    "Rivista cartacea partner per articoli di approfondimento.",
-    ["moda", "lifestyle", "lavoro"]
+const magazinePlatform = new Platform(
+    "Women Today Magazine",
+    "print",
+    "Partner print magazine for in-depth articles.",
+    ["fashion", "lifestyle", "work"]
 );
 
-console.log("\nPiattaforme create:");
-console.log(piattaformaBlog);
-console.log(piattaformaYouTube);
-console.log(piattaformaRivista);
+console.log("\nPlatforms created:");
+console.log(blogPlatform);
+console.log(youtubePlatform);
+console.log(magazinePlatform);
 
-// 4. Verifica Logica di Collegamento
+// 4. Verify Connection Logic
 
-console.log("\n--- Logica di Collegamento ---");
+console.log("\n--- Connection Logic ---");
 
-// Professioniste si iscrivono ai programmi
-professionista1.partecipaProgramma(programmaMentorship);
-professionista2.partecipaProgramma(programmaTecnico);
-professionista3.partecipaProgramma(programmaMentorship); // Sara si iscrive anche al mentorship
+// Professionals enroll in programs
+mediaProfessional1.enrollInProgram(mentorshipProgram);
+mediaProfessional2.enrollInProgram(technicalProgram);
+mediaProfessional3.enrollInProgram(mentorshipProgram); // Sara also enrolls in the mentorship program
 
-// Tentativo di aggiungere la stessa professionista (dovrebbe stampare un messaggio di già iscritta)
-professionista3.partecipaProgramma(programmaMentorship);
+// Attempt to add the same professional (should print an already enrolled message)
+mediaProfessional3.enrollInProgram(mentorshipProgram);
 
 
-console.log("\nStato dei programmi dopo le iscrizioni:");
-console.log(programmaMentorship);
-console.log(programmaTecnico);
+console.log("\nProgram status after enrollments:");
+console.log(mentorshipProgram);
+console.log(technicalProgram);
 
-// Piattaforme pubblicano contenuti delle professioniste
-piattaformaBlog.pubblicaContenuto(
-    professionista1,
-    "Articolo: 'L'impatto delle donne nel giornalismo d'inchiesta italiano'."
+// Platforms publish content from professionals
+blogPlatform.publishContent(
+    mediaProfessional1,
+    "Article: 'The Impact of Women in Italian Investigative Journalism'."
 );
 
-piattaformaYouTube.pubblicaContenuto(
-    professionista2,
-    "Video Intervista: 'Registe emergenti: sfide e opportunità nel cinema indipendente'."
+youtubePlatform.publishContent(
+    mediaProfessional2,
+    "Video Interview: 'Emerging Female Directors: Challenges and Opportunities in Independent Cinema'."
 );
 
-piattaformaRivista.pubblicaContenuto(
-    professionista3,
-    "Servizio: 'Il ruolo delle donne nella produzione di podcast di successo'."
+magazinePlatform.publishContent(
+    mediaProfessional3,
+    "Feature: 'The Role of Women in Successful Podcast Production'."
 );
 
-console.log("--- Fine Test Simulazione 'Voci' ---");
+console.log("--- End 'Voci' Simulation Test ---");

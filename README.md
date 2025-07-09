@@ -1,99 +1,95 @@
-Voci: Sistema di Modellazione Aziendale in TypeScript
-Un progetto TypeScript per modellare la struttura operativa di "Voci", un media online impegnato nella promozione della parità di genere e della diversità.
+Voci: Enterprise Modeling System in TypeScript
+A TypeScript project to model the operational structure of "Voci," an online media committed to promoting gender equality and diversity.
 
-Descrizione del Progetto
-Questo progetto sviluppa un sistema in TypeScript che modella la struttura operativa di "Voci", un media online ipotetico ma realistico. L'obiettivo principale è rappresentare le interazioni tra professioniste dei media, programmi di formazione e piattaforme di pubblicazione, evidenziando come la tecnologia possa facilitare la promozione della parità di genere e la diversità nel panorama mediatico.
+Project Description
+This project develops a TypeScript system that models the operational structure of "Voci," a hypothetical yet realistic online media. The main goal is to represent the interactions between media professionals, training programs, and publishing platforms, highlighting how technology can facilitate the promotion of gender equality and diversity in the media landscape.
 
-Il sistema è stato progettato attraverso la definizione di interfacce e l'implementazione di classi che rappresentano i vari componenti chiave dell'azienda: IProfessionistaMedia, IProgrammaFormazione e IPiattaforma.
+The system has been designed through the definition of interfaces and the implementation of classes that represent the various key components of the organization: IMediaProfessional, ITrainingProgram, and IPlatform.
 
-Struttura del Progetto
-Il progetto è articolato attorno a tre interfacce principali e le relative classi che le implementano:
+Project Structure
+The project is structured around three main interfaces and their corresponding implementing classes:
 
-Interfacce
-IProfessionistaMedia: Rappresenta le donne che lavorano o aspirano a lavorare nei media.
+Interfaces
+IMediaProfessional: Represents women who work or aspire to work in media.
 
-Proprietà: nome, cognome, specializzazione, esperienza, interessi.
+Properties: firstName, lastName, specialization, experienceYears, interests.
 
-Metodo: partecipaProgramma(programma: IProgrammaFormazione): void per iscriversi a un programma di formazione.
+Method: enrollInProgram(program: ITrainingProgram): void to enroll in a training program.
 
-IProgrammaFormazione: Rappresenta i programmi di formazione, mentorship e sviluppo professionale offerti da "Voci".
+ITrainingProgram: Represents the training, mentorship, and professional development programs offered by "Voci."
 
-Proprietà: titolo, descriptive, ambitoSpecializzazione, durata, elencoPartecipanti (IProfessionistaMedia[]).
+Properties: title, description, specializationArea, duration, participants (IMediaProfessional[]).
 
-Metodo: aggiungiPartecipante(professionista: IProfessionistaMedia): void per aggiungere una professionista all'elenco dei partecipanti.
+Method: addParticipant(professional: IMediaProfessional): void to add a professional to the list of participants.
 
-IPiattaforma: Rappresenta le piattaforme di pubblicazione (tradizionali o digitali) che collaborano con "Voci" per promuovere contenuti inclusivi.
+IPlatform: Represents publishing platforms (both traditional and digital) that collaborate with "Voci" to promote inclusive content.
 
-Proprietà: nome, tipo, descriptive, categorieContenuto.
+Properties: name, type ('print' | 'online' | 'audiovisual'), description, contentCategories.
 
-Metodo: pubblicaContenuto(professionista: IProfessionistaMedia, contenuto: string): void per pubblicare il lavoro di una professionista media.
+Method: publishContent(professional: IMediaProfessional, content: string): void to publish a media professional's work.
 
-Classi
-ProfessionistaMedia: Implementa IProfessionistaMedia. Gestisce le informazioni sulle professioniste dei media e la loro partecipazione ai programmi di formazione.
+Classes
+MediaProfessional: Implements IMediaProfessional. Manages information about media professionals, including their participation in training programs.
 
-ProgrammaFormazione: Implementa IProgrammaFormazione. Gestisce i dettagli dei programmi di formazione e gli iscritti. Include una logica per evitare l'aggiunta di partecipanti duplicati.
+TrainingProgram: Implements ITrainingProgram. Manages the details of training, mentorship, and professional development programs, including enrolled participants. Includes logic to prevent duplicate participant additions.
 
-Piattaforma: Implementa IPiattaforma. Rappresenta le piattaforme di pubblicazione e permette la pubblicazione dei contenuti delle professioniste.
+Platform: Implements IPlatform. Represents publishing platforms and allows for the publication of content by professionals.
 
-Logica di Collegamento
-Le entità del sistema interagiscono per simulare i flussi di lavoro di "Voci":
+Connection Logic
+The system entities interact to simulate "Voci"'s workflows:
 
-Il metodo partecipaProgramma della classe ProfessionistaMedia consente alle professioniste di iscriversi ai programmi di formazione offerti.
+The enrollInProgram method of the MediaProfessional class allows professionals to enroll in the training programs offered.
 
-Il metodo aggiungiPartecipante della classe ProgrammaFormazione facilita l'aggiunta di nuove professioniste ai programmi di sviluppo, garantendo che non ci siano duplicati.
+The addParticipant method of the TrainingProgram class facilitates the addition of new professionals to development programs, ensuring no duplicates.
 
-Il metodo pubblicaContenuto della classe Piattaforma permette alle piattaforme di collaborare con le professioniste dei media per pubblicare lavori che promuovono la parità di genere e la diversità nei contenuti.
+The publishContent method of the Platform class enables platforms to collaborate with media professionals to publish works that promote gender equality and diversity in content.
 
-Questa interconnessione dimostra come il sistema può modellare le relazioni e i flussi di lavoro all'interno dell'organizzazione, facilitando la promozione della parità di genere attraverso la formazione e la visibilità delle professioniste.
+This interconnection demonstrates how the system can model relationships and workflows within the organization, facilitating the promotion of gender equality through training and visibility for professionals.
 
-Scelte Progettuali
-Le decisioni architetturali e di implementazione sono state guidate da principi di chiarezza, robustezza e scalabilità:
+Design Choices
+Architectural and implementation decisions were guided by principles of clarity, robustness, and scalability:
 
-Architettura basata su Interfacce: L'adozione di interfacce prima delle classi concrete ha permesso di definire un contratto chiaro per ogni entità, migliorando la leggibilità, la manutenibilità e la flessibilità del codice. Questo approccio favorisce il polimorfismo e rende il sistema più facile da estendere in futuro.
+Interface-Based Architecture: Adopting interfaces before concrete classes allowed for defining a clear contract for each entity, improving code readability, maintainability, and flexibility. This approach promotes polymorphism and makes the system easier to extend in the future.
 
-Incapsulamento nelle Classi: Ogni classe incapsula i dati (proprietà) e la logica (metodi) relativi alla propria entità, promuovendo una buona organizzazione del codice e riducendo le dipendenze esterne.
+Encapsulation in Classes: Each class encapsulates data (properties) and logic (methods) related to its entity, promoting good code organization and reducing external dependencies.
 
-Robustezza del Sistema: L'implementazione di controlli specifici, come la prevenzione di iscrizioni duplicate in ProgrammaFormazione, aumenta la stabilità e l'affidabilità del sistema.
+System Robustness: The implementation of specific controls, such as preventing duplicate enrollments in TrainingProgram, enhances system stability and reliability.
 
-Vantaggi di TypeScript: L'uso di TypeScript ha garantito una forte tipizzazione, permettendo il rilevamento precoce di errori in fase di sviluppo, migliorando la qualità del codice e facilitando la collaborazione in team.
+Benefits of TypeScript: The use of TypeScript ensured strong typing, enabling early detection of errors during development, improving code quality, and facilitating team collaboration.
 
-Chiarezza dei Log: L'utilizzo estensivo di console.log() è stato fondamentale per visualizzare il flusso delle operazioni e convalidare il corretto funzionamento della logica di collegamento durante lo sviluppo e il testing.
+Clear Logs: Extensive use of console.log() was fundamental for visualizing the flow of operations and validating the correct functioning of the connection logic during development and testing.
 
-Come Eseguire il Codice
-Il progetto è stato sviluppato in TypeScript e può essere eseguito e visualizzato facilmente online tramite CodePen.
+How to Run the Code
+The project was developed in TypeScript and can be easily run and viewed online via CodePen.
 
-Visualizzazione su CodePen
-Puoi vedere una demo interattiva del progetto e l'output in console al seguente link:
+View on CodePen
+You can see an interactive demo of the project and the console output at the following link:
 
 👉 https://codepen.io/erikarossi95/pen/JodgeNZ
 
-Esecuzione Locale (Opzionale)
-Se desideri eseguire il codice localmente, segui questi passaggi:
+Local Execution (Optional)
+If you wish to run the code locally, follow these steps:
 
-Clona il repository:
-
-Bash
+Clone the repository:
 
 git clone https://github.com/erikarossi95/voci-media-system.git
 cd voci-media-system
-Installa TypeScript (se non lo hai già):
 
-Bash
+Install TypeScript (if you haven't already):
 
 npm install -g typescript
-Compila il codice TypeScript:
 
-Bash
+Compile the TypeScript code:
 
 tsc app.ts
-(Assicurati che il tuo file principale sia chiamato app.ts o adatta il comando)
 
-Esegui il codice JavaScript compilato:
+(Ensure your main file is named app.ts or adjust the command accordingly)
 
-Bash
+Execute the compiled JavaScript code:
 
 node app.js
-L'output del programma sarà visibile nella tua console.
 
-Autore
+The program's output will be visible in your console.
+
+Author
 Erika Rossi
