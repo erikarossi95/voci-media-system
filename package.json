@@ -1,0 +1,16 @@
+{
+  "name": "voci-media-system",
+  "version": "1.0.0",
+  "description": "Voci: Sistema di Modellazione Aziendale in TypeScript Un progetto TypeScript per modellare la struttura operativa di \"Voci\", un media online impegnato nella promozione della parità di genere e della diversità.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "verify": "tsc"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
+}
